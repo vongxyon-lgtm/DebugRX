@@ -76,3 +76,10 @@ Report this as a side effect: a relaunch resets in-memory state.
 - Theme: switch Telegram to dark mode — does the app follow `themeParams`?
 - Viewport: resize the mini-app window / expand-collapse — does the layout recover?
 - `initData` is never shown in the UI or in a share link (see `security-observations.md`).
+
+## Evidence
+
+- **Logic bug → recording** of the Telegram Desktop window with the mac recorder: get the window's frame from `app_list_windows` (or a screenshot), then
+  `python3 scripts/record.py start --platform mac --rect X,Y,W,H --name B01-… --out evidence`, log each step with `record.py step`, act with the computer-use tools, `record.py stop`. The app running the script needs Screen Recording permission in System Settings; if the user hasn't granted it, fall back to a numbered screenshot sequence and say so.
+- **Presentation bug → screenshot** of the window (`app_screenshot`/`screenshot`), save it, then `scripts/annotate.py` with boxes in that image's pixels.
+- Computer-use clicks don't show a touch dot; the mac recorder's `-k` shows clicks. Still name each tap in the narration.

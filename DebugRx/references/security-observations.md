@@ -20,7 +20,7 @@ What a tester can notice *while operating the app normally* that a developer sho
 |---|---|---|
 | Tokens, session ids, `initData`, phone numbers, emails in the **URL** (share links, deep links, "copy link") | share sheet, address bar, QR content | URLs are logged, forwarded, screenshotted |
 | Full card numbers, ID numbers, passwords shown in clear | profile, order, settings | should be masked |
-| Other users' phone/email in a friend list or leaderboard | lists | data exposure |
+| Other users' phone/email in a friend list, leaderboard or **referral/invite record** | lists, "my invites", distributor pages | data exposure — APK case: an invite-record page listed 19 invitees' full phone numbers; mask to e.g. `097****562` |
 | Tokens or PII in local storage (web/mini program Storage panel) | DevTools | readable by anything on the device |
 | Stack traces, SQL, internal hostnames in error toasts | error states (§7 of checklist) | information leak |
 | Debug menus, "test mode" switches, hidden admin pages reachable by tap | settings, about page, long-press on logo | should not ship |
@@ -36,7 +36,7 @@ What a tester can notice *while operating the app normally* that a developer sho
 
 ## 3. Input that reaches other users
 
-While doing checklist §4 (input validation), use names and messages like:
+While doing checklist §5 (input → downstream), use names and messages like:
 
 ```
 <b>bold</b>   {{name}}   ' OR 1=1   😀🔥   مرحبا   ThisIsAVeryLongNameWithoutSpaces
@@ -54,6 +54,8 @@ Then look at every place that value is rendered — lists, toasts, notifications
 | Log out, press Back | Protected page still shows cached content |
 | Session expiry (wait, or clear the cookie on web) | Infinite spinner instead of re-login |
 | Account switching (if the host allows) | Previous user's data flashes |
+| Log in, then open every embedded web page | Page shows "please log in" or a login form — the session is not passed, and it is worth asking how the page authenticates at all (APK case: earn, activity and member pages) |
+| Same feature from two entries | Login required on one, open on the other: either the gate is pointless or the open route bypasses it (APK case: home search vs. category search) |
 
 ## 5. Payments and money-like values
 

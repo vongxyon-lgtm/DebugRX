@@ -6,7 +6,7 @@ Use the iOS Simulator tool when the session has it (`mcp__Claude_Code_iOS_Simula
 
 1. If the user wants to watch, `attach` first (cheap; errors harmlessly if nothing is booted).
 2. Build with the project's own tooling or the server's `build` tool, then `launch` with the `.app` path. The launch result reports the device's point dimensions — coordinates below are in points, origin top-left.
-3. `screenshot` to confirm the app's first screen. If a system dialog (notifications, tracking) is up, note it — that is a Phase 3 §8 probe, not an obstacle.
+3. `screenshot` to confirm the app's first screen. If a system dialog (notifications, tracking) is up, note it — that is a permission-flow probe (checklist §9), not an obstacle.
 
 Fallback without the tool:
 
@@ -38,3 +38,9 @@ Tapping without the tool means computer-use on the Simulator window (grant "Simu
 ## 4. Release
 
 `detach` when done; leave the simulator booted unless the user asks otherwise.
+
+## Evidence
+
+- **Logic bug → recording:** `python3 scripts/record.py start --platform ios --name B01-… --out evidence` (uses `xcrun simctl io booted recordVideo`; add `--udid` if several simulators are booted), log each step, act, `record.py stop`.
+- **Presentation bug → screenshot:** `xcrun simctl io booted screenshot raw.png` (device pixels — points × scale factor), then `scripts/annotate.py`.
+- Taps don't show in simulator recordings; name each tap position in the narration.

@@ -33,3 +33,9 @@ Use the browser tools (`mcp__Claude_Browser__*` built-in browser, or `mcp__claud
 ## 5. Release
 
 Reset the viewport (`resize_window preset: "desktop"`), close tabs you opened, don't sign out an account the user signed in.
+
+## Evidence
+
+- **Logic bug → recording:** use the browser tool's GIF/recording feature if it has one (Claude in Chrome has a GIF recorder); otherwise record the browser window with `scripts/record.py --platform mac --rect …`. Log each step either way.
+- **Presentation bug → screenshot** at the emulated device size, then `scripts/annotate.py`. For text bugs include the element's selector or text from the DOM so the developer can grep for it.
+- Console errors and failed network requests that happen during the reproduction go under the video as part of the narration.

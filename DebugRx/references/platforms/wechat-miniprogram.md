@@ -37,3 +37,8 @@ Evidence panels, read with screenshots/zoom:
 ## 5. Release
 
 `app_release` the DevTools window; leave the simulator on the home page.
+
+## Evidence
+
+- **Logic bug → recording** of the DevTools simulator panel with the mac recorder: `python3 scripts/record.py start --platform mac --rect X,Y,W,H --name B01-… --out evidence` (rectangle = the phone frame only, not the whole IDE), log steps, act, stop. Needs Screen Recording permission.
+- **Presentation bug → screenshot** of the simulator panel, then `scripts/annotate.py`. For text bugs also copy the WXML node from the inspector into the report.
